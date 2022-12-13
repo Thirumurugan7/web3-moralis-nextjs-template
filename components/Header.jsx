@@ -1,7 +1,14 @@
 import { useMoralis } from "react-moralis";
 import { useEffect } from "react";
 export default function Header() {
-  const { enableWeb3, account, isWeb3Enabled } = useMoralis();
+  const {
+    enableWeb3,
+    account,
+    isWeb3Enabled,
+    Moralis,
+    deactivateWeb3,
+    isWeb3EnableLoading,
+  } = useMoralis();
 
   useEffect(() => {
     if (isWeb3Enabled) return;
@@ -15,6 +22,17 @@ export default function Header() {
     console.log(isWeb3Enabled);
   }, [isWeb3Enabled]);
 
+  useEffect(() => {
+    Moralis.onAccountChanged((account) => {
+      console.log(`Account changed to ${account}`);
+      if (account == null) {
+        window.localStorage.removeItem("connected");
+        deactivateWeb3();
+        console.log("nothing there");
+      }
+    });
+  });
+
   return (
     <div>
       {account ? (
@@ -27,6 +45,7 @@ export default function Header() {
               window.localStorage.setItem("connected", "injected");
             }
           }}
+          disabled={isWeb3Enabled}
         >
           Connect
         </button>
