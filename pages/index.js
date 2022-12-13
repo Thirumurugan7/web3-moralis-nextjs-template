@@ -1,6 +1,7 @@
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
-import Header from "../components/Header";
+//import Header from "../components/Header";
+import EasyHeader from "../components/EasyHeader";
 export default function Home() {
   return (
     <div className={styles.container}>
@@ -9,7 +10,7 @@ export default function Home() {
         <meta name="description" content="SmartContract Lottery" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Header />
+      <EasyHeader />
     </div>
   );
 }
